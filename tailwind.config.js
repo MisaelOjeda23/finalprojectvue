@@ -9,6 +9,13 @@ export default {
         "primary": "#FABB18",
         "primary-hover": "#C69413",
         "secondary": "#9A9A9A",
+        //Table colors
+        "alta": "#E06C60",
+        "media": "FBD87E",
+        "baja": "61CB90",
+        "Finalizada": "E06C60",
+        "curso": "#528DDE",
+        "pausado": "FBD87E",
         //text
         "txt-white-m": "#9CA3AF",
         "txt-dark-m": "#374151",
