@@ -82,5 +82,6 @@ import IconMembers from './icons/IconMembers.vue';
 import IconProjects from './icons/IconProjects.vue';
 import IconTasks from './icons/IconTaks.vue';
 import IconDashboard from './icons/IconDashboard.vue';
+
 </script>
 <style scoped></style>

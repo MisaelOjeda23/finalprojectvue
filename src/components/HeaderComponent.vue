@@ -1,10 +1,10 @@
 <template>
 
     <header class=" z-10 py-4 bg-white shadow-md dark:bg-gray-800">
-        <div
-            class="container flex items-center justify-between h-full px-6 mx-auto text-primary0 dark:text-purple-300">
+        <div class="container flex items-center justify-between h-full px-6 mx-auto text-primary0 dark:text-primary">
             <!-- Mobile hamburger -->
-            <button class="p-1 -ml-1 mr-5 rounded-md  focus:outline-none focus:shadow-outline-purple" aria-label="Menu">
+            <button class="p-1 -ml-1 mr-5 rounded-md  focus:outline-none focus:shadow-outline-primary"
+                aria-label="Menu">
                 <IconMenuHam class="w-6 h-6" />
             </button>
             <!-- Buscador -->
@@ -21,22 +21,26 @@
                         </svg>
                     </div>
                     <input
-                        class="w-full pl-8 pr-2 text-base text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                        class="w-full pl-8 pr-2 text-base text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-primary focus:outline-none focus:shadow-outline-primary form-input"
                         type="text" placeholder="Buscar tareas..." aria-label="Search" />
                 </div>
             </div>
             <div class="flex items-center flex-shrink-0 space-x-6">
-                <!-- Profile menu -->
+
+                <div class="flex">
+                    <ButtonTheme />
+                </div>
+
                 <div class="relative flex flex-row">
                     <div class="flex flex-col px-6 text-gray-500 dark:text-gray-400 text-base ">
                         <span class="hidden md:block font-semibold">{{ user.name }}</span>
                         <span class="hidden md:block font-light">{{ user.email }}</span>
                     </div>
-                    <div class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                    <div class="align-middle rounded-full focus:shadow-outline-primary focus:outline-none"
                         aria-label="Account" aria-haspopup="true">
                         <details>
-                            <summary class="flex cursor-pointer"><img class="object-cover w-8 h-8 rounded-full" src="/img/profile.webp"
-                                    alt="" aria-hidden="true" /></summary>
+                            <summary class="flex cursor-pointer"><img class="object-cover w-8 h-8 rounded-full"
+                                    src="/img/profile.webp" alt="" aria-hidden="true" /></summary>
                             <ul class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                                 aria-label="submenu">
                                 <li class="flex">
@@ -73,6 +77,7 @@ import IconLogOut from '@/components/icons/IconLogOut.vue';
 import IconMenuHam from '@/components/icons/IconMenuHam.vue';
 import IconSettings from '@/components/icons/IconSettings.vue';
 import IconProfile from '@/components/icons/IconProfile.vue';
+import ButtonTheme from '@/components/buttons/ButtonTheme.vue';
 import UserService from '@/services/UserService';
 
 import { RouterLink } from 'vue-router';
