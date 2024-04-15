@@ -44,6 +44,7 @@ export default class ApiService{
             const resultado = await respuesta.json()
 
             console.log(`Tareas del usuario ${id}:`, resultado);
+            return resultado
 
         } catch (error) {
             console.log(error);
@@ -77,13 +78,19 @@ export default class ApiService{
             })
             const resultado = await respuesta.json()
 
+            /* Si devuelve un error, las cxredenciales son incorrectas */
+            if (resultado.error) {
+                this.alertService.mostrarAlert('Credenciales incorrectas', 'Por favor, valida que el correo electronico y/o la contraseña sean correctas', 'warning', 'Volver a intentar')
+                return
+            }
+
             /* Se guarda la informacion del usuario en el LocalStorage */
             this.userService.guardarUsuarioLS(resultado)
             /* Y se redirige a la vista de Dashboard */
             router.push({ name: 'Dashboard' })
             
         } catch (error) {
-            console.error(error);
+            console.error('Error:', error);
         }
     }
 

@@ -10,6 +10,7 @@ export default class UserService{
         this.user = ref({}) as Ref<IUser>
         this.idUser = ref('')
         this.obtenerUsuarioLS()
+        this.obtenerIdUsuarioLS()
     }
 
     getUsuario(){
@@ -23,16 +24,21 @@ export default class UserService{
     async guardarUsuarioLS(usuario: any){
         localStorage.setItem('user', JSON.stringify(usuario))
         localStorage.setItem('idUser', usuario.idUser)
+        this.obtenerUsuarioLS()
+        this.obtenerIdUsuarioLS()
     }
 
     obtenerUsuarioLS(){
         let usuario = localStorage.getItem('user') || ''
         
-        this.user.value = JSON.parse(usuario)
+        /* Si hay un usuario en LS, se transforma a JSON */
+        if (usuario) {
+            this.user.value = JSON.parse(usuario)
+        }
     }
 
     obtenerIdUsuarioLS(){
-        this.idUser = localStorage.getItem('idUser') || ''
+        this.idUser.value = localStorage.getItem('idUser') || ''
     }
 
     async borrarUsuarioLS(){
