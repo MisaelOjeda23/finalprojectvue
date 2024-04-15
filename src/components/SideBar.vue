@@ -8,28 +8,28 @@
             <ul class="mt-6">
                 <li class="relative px-6 py-3">
                     <RouterLink to="/dashboard"
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                        class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconDashboard class="w-5 h-5" />
                         <span class="ml-4">Home</span>
                     </RouterLink>
                 </li>
                 <li class="relative px-6 py-3">
                     <RouterLink to="/tasks"
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                        class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconTasks class="w-5 h-5" />
                         <span class="ml-4">Tareas</span>
                     </RouterLink>
                 </li>
                 <li class="relative px-6 py-3">
                     <RouterLink to="/projects"
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                        class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconProjects class="w-5 h-5" />
                         <span class="ml-4">Proyectos</span>
                     </RouterLink>
                 </li>
                 <li class="relative px-6 py-3">
                     <RouterLink to="/members"
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                        class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconMembers class="w-5 h-5" />
                         <span class="ml-4">Miembros</span>
                     </RouterLink>
@@ -46,28 +46,28 @@
             <ul class="mt-6">
                 <li class="relative px-6 py-3">
                     <RouterLink to="/dashboard"
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                        class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconDashboard class="w-5 h-5" />
                         <span class="ml-4">Home</span>
                     </RouterLink>
                 </li>
                 <li class="relative px-6 py-3">
                     <RouterLink to="/tasks"
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                        class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconTasks class="w-5 h-5" />
                         <span class="ml-4">Tareas</span>
                     </RouterLink>
                 </li>
                 <li class="relative px-6 py-3">
                     <RouterLink to="/projects"
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                        class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconProjects class="w-5 h-5" />
                         <span class="ml-4">Proyectos</span>
                     </RouterLink>
                 </li>
                 <li class="relative px-6 py-3">
                     <RouterLink to="/members"
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                        class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconMembers class="w-5 h-5" />
                         <span class="ml-4">Miembros</span>
                     </RouterLink>

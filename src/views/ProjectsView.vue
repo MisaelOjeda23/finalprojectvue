@@ -8,4 +8,4 @@
 <script lang="ts" setup>
 import SectionContainer from '@/components/SectionContainer.vue';
 </script>
-<style scoped></style>
+<style scoped></style>np

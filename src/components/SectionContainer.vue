@@ -3,9 +3,12 @@
     <SideBar />
     <div class="flex flex-col flex-1">
       <HeaderComponent />
-      <slot>
+      <main class="h-full overflow-auto p-11">
+        <slot>
         
       </slot>
+      </main>
+      
     </div>
   </div>
 </template>
