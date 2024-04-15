@@ -29,8 +29,8 @@
                 <!-- Profile menu -->
                 <div class="relative flex flex-row">
                     <div class="flex flex-col px-6 text-gray-500 dark:text-gray-400 text-base ">
-                        <span class="hidden md:block font-semibold">Antonio Borges</span>
-                        <span class="hidden md:block font-light">Desarrollador FrontEnd</span>
+                        <span class="hidden md:block font-semibold">{{ user.name }}</span>
+                        <span class="hidden md:block font-light">{{ user.email }}</span>
                     </div>
                     <div class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                         aria-label="Account" aria-haspopup="true">
@@ -53,7 +53,7 @@
                                         <span>Configurar</span>
                                     </RouterLink>
                                 </li>
-                                <li class="flex">
+                                <li class="flex" v-on:click="cerrarSesion">
                                     <RouterLink to="/"
                                         class="inline-flex items-center w-full px-2 py-1 text-base font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
                                         <IconSettings class="w-4 h-4 mr-3" />
@@ -73,7 +73,16 @@ import IconLogOut from '@/components/icons/IconLogOut.vue';
 import IconMenuHam from '@/components/icons/IconMenuHam.vue';
 import IconSettings from '@/components/icons/IconSettings.vue';
 import IconProfile from '@/components/icons/IconProfile.vue';
+import UserService from '@/services/UserService';
 
 import { RouterLink } from 'vue-router';
+
+    const userService = new UserService()
+    const user = userService.getUsuario()
+
+const cerrarSesion = () => {
+    userService.borrarUsuarioLS()
+}
+
 </script>
 <style scoped></style>

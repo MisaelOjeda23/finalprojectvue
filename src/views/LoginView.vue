@@ -19,22 +19,33 @@
                         <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-txt-white-m">
                             Bienvenido a TASKY
                         </h1>
-                        <label class="block text-base">
-                            <span class="text-gray-700 dark:text-txt-white-m">Usuario</span>
-                            <input
-                                class="block w-full mt-1 text-base dark:border-gray-600 dark:bg-gray-700 focus:border-primary-hover focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input px-4 py-2"
-                                placeholder="Mi usuario" type="text" />
-                        </label>
-                        <label class="block mt-4 text-base">
-                            <span class="text-gray-700 dark:text-txt-white-m">Contraseña</span>
-                            <input
-                                class="block w-full mt-1 text-base dark:border-gray-600 dark:bg-gray-700 focus:border-primary-hover focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input px-4 py-2"
-                                placeholder="***************" type="password" />
-                        </label>
-                        <a class="block w-full px-4 py-2 mt-4 text-base font-medium leading-5 text-center text-white transition-colors duration-150 bg-primary border border-transparent rounded-lg active:bg-primary-hover hover:bg-primary-hover focus:outline-none focus:shadow-outline-purple"
-                            href="#">
-                            Iniciar sesión
-                        </a>
+
+                        <form v-on:submit="login" >
+
+                            <div v-if="mensaje">
+                                <Error :prop1="mensaje" :prop2="tipo" />
+                            </div>
+
+                            <div v-else>
+                                <!-- Pues no se muestra nada vea -->
+                            </div>
+
+                            <label class="block text-base">
+                                <span class="text-gray-700 dark:text-txt-white-m">Correo electronico</span>
+                                <input
+                                    class="block w-full mt-1 text-base dark:border-gray-600 dark:bg-gray-700 focus:border-primary-hover focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input px-4 py-2"
+                                    placeholder="Mi usuario" type="text" v-model="email" />
+                            </label>
+                            <label class="block mt-4 text-base">
+                                <span class="text-gray-700 dark:text-txt-white-m">Contraseña</span>
+                                <input
+                                    class="block w-full mt-1 text-base dark:border-gray-600 dark:bg-gray-700 focus:border-primary-hover focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input px-4 py-2"
+                                    placeholder="***************" type="password" v-model="password" />
+                            </label>
+                            <input class="block w-full px-4 py-2 mt-4 text-base font-medium leading-5 text-center text-white transition-colors duration-150 bg-primary border border-transparent rounded-lg active:bg-primary-hover hover:bg-primary-hover focus:outline-none focus:shadow-outline-purple"
+                                href="#" type="submit" value="Iniciar Sesion" >
+                            </input>
+                        </form>
 
                         <hr class="my-8" />
 
@@ -52,6 +63,38 @@
 </template>
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router'
+import { ref, type Ref } from 'vue';
+import ApiService from '@/services/ApiService';
+import Error from '@/components/Error.vue';
+
+     const email:Ref<string> = ref('')
+     const password:Ref<string> = ref('')
+
+     const mensaje = ref('')
+     const tipo = ref('')
+
+  const service = new ApiService()
+
+  const login = async(e: any) => {
+    e.preventDefault();
+
+    if ([email.value, password.value].includes('')) {
+        mensaje.value = 'Todos los campos son obligatorios'
+        tipo.value = 'error'
+        return
+    }
+
+    let usuario = {
+        email: email.value,
+        password: password.value
+    }
+    
+    mensaje.value = ''
+    tipo.value = ''
+
+    await service.Login(usuario)
+
+  }
 
 </script>
 <style scoped></style>

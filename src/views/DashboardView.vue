@@ -37,5 +37,17 @@ import SectionContainer from '@/components/SectionContainer.vue';
 import WidgetInfo from '@/components/WidgetInfo.vue';
 import TableInfo from '@/components/TableInfo.vue';
 import CardInfo from '@/components/CardInfo.vue';
+import UserService from '@/services/UserService';
+import { onMounted, ref } from 'vue';
+
+const userService = new UserService()
+const user = userService.getUsuario()
+
+onMounted(async () => {
+  console.log(user.value);
+  
+})
+
+
 </script>
 <style scoped></style>
