@@ -1,9 +1,11 @@
 <template>
+
   <SectionContainer>
+  
     <section class="flex justify-between text-white pb-11">
       <div>
-        <h3 class="text-4xl font-semibold">Lunes</h3>
-        <p class="text-base">Marzo 22, 2024 | 10:05 AM</p>
+        <h3 class="text-4xl font-semibold text-gray-700 dark:text-gray-200">Lunes</h3>
+        <p class="text-base text-gray-700 dark:text-gray-200">Marzo 22, 2024 | 10:05 AM</p>
       </div>
       <button>Play</button>
     </section>

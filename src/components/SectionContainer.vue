@@ -3,7 +3,7 @@
     <SideBar />
     <div class="flex flex-col flex-1">
       <HeaderComponent />
-      <main class="h-full overflow-auto p-11">
+      <main class="h-full overflow-y-auto p-11">
         <slot>
         
       </slot>
