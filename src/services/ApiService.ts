@@ -3,6 +3,9 @@ import AlertService from "./AlertService";
 import { useRouter } from "vue-router";
 import router from "@/router";
 import UserService from "./UserService";
+import { useTaskStore } from "@/stores/task";
+import { useUserStore } from "@/stores/user";
+import type { ITarea } from "@/interfaces/ITarea";
 
 export default class ApiService{
     
@@ -44,6 +47,10 @@ export default class ApiService{
             const resultado = await respuesta.json()
 
             console.log(`Tareas del usuario ${id}:`, resultado);
+
+            const tasKStore = useTaskStore()
+            tasKStore.tareas = resultado
+
             return resultado
 
         } catch (error) {
@@ -62,9 +69,63 @@ export default class ApiService{
             const resultado = await respuesta.json()
 
             console.log(`Tarea agregada`, resultado);
+
+            if (resultado.error) {
+                this.alertService.mostrarAlert('Error', 'Ocurrio un error al agregar la tarea. Porfavor vuelva a intentarlo', "warning", 'Volver a intertar')
+                return
+            }
+
+            const userStore = useUserStore()
+            this.obtenerTareas(userStore.idUsuario)
+
             
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    async eliminarTarea(id: string){
+        try{
+
+            const respuesta = await fetch(this.url + `/tarea/${id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },   
+            })
+            const resultado = await respuesta.json()
+
+            if (resultado.error) {
+                this.alertService.mostrarAlert('Error', 'Ocurrio un error al eliminar la tarea. Porfavor vuelva a intentarlo', "warning", 'Volver a intertar')
+                return
+            }
+
+            const userStore = useUserStore()
+            await this.obtenerTareas(userStore.idUsuario)
+        }
+        catch(error){
+            console.error('Error:', error);
+        }
+    }
+
+    async actualizarTarea(id: string, tarea: ITarea){
+        try {
+
+            const respuesta = await fetch(this.url + `/tarea/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(tarea)   
+            })
+            const resultado = await respuesta.json()
+
+            if (resultado.error) {
+                this.alertService.mostrarAlert('Error', 'Ocurrio un error al actualizar la tarea. Porfavor vuelva a intentarlo', "warning", 'Volver a intertar')
+                return
+            }
+
+            const userStore = useUserStore()
+            this.obtenerTareas(userStore.idUsuario)
+            
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -83,6 +144,8 @@ export default class ApiService{
                 this.alertService.mostrarAlert('Credenciales incorrectas', 'Por favor, valida que el correo electronico y/o la contraseña sean correctas', 'warning', 'Volver a intentar')
                 return
             }
+
+            this.alertService.mostrarAlert('Tarea Guardada', 'La tarea se ha creado exitosamente', 'success', 'Okay')
 
             /* Se guarda la informacion del usuario en el LocalStorage */
             this.userService.guardarUsuarioLS(resultado)

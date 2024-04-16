@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components{
+
+
+  }
+
 #app {
 /*    max-width: 100vh;
   margin: 0 auto;

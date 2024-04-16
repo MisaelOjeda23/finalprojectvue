@@ -5,7 +5,7 @@
     <section class="flex justify-between text-white pb-11">
       <div>
         <h3 class="text-4xl font-semibold">{{ fecha[0] }}</h3>
-        <p class="text-base">{{ fecha[1] }} | 10:05 AM</p>
+        <p class="text-base">{{ fecha[1] }} </p>
       </div>
     </section>
 

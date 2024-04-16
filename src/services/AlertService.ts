@@ -2,6 +2,7 @@ import Swal from 'sweetalert2'
 import router from '@/router'
 import { useUserStore } from '@/stores/user';
 import ApiService from './ApiService';
+import type { ITarea } from '@/interfaces/ITarea';
 
 export default class AlertService{
 
@@ -32,23 +33,75 @@ export default class AlertService{
           })
     }
 
+    async preguntarEliminarAlert( titulo: string, texto: string, boton1: string, id?:string ){
+      await Swal.fire({
+        title: titulo,
+        text: texto,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: boton1
+      }).then( async (result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Eliminado",
+            text: "Elemento eliminado correctamente",
+            icon: "success"
+          });
+          if (id) {
+            const apiService = new ApiService()
+            await apiService.eliminarTarea(id)
+          }
+        }
+      });
+    }
+
     async modalCrearTarea(){
+      const fecha = new Date()
+      const fechaActual = fecha.toISOString().split('T')[0];
+      
       const { value: formValues } = await Swal.fire({
-        title: "Agregar Nueva Tarea",
+        title: "Nueva Tarea",
         html: `
-          <input id="swal-input1" placeholder="Nombre" class="swal2-input">
-          <input id="swal-input2" placeholder="Descripcion" class="swal2-input">
-          <input id="swal-input3" class="swal2-input" type="date">
-          <input id="swal-input4" class="swal2-input" type="date">
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Tarea: </label>
+            <input id="swal-input1" placeholder="Nombre" class="swal2-input">
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input2" class=" block text-gray-700 uppercase font-bold" >Descripción: </label>
+            <input id="swal-input2" placeholder="Descripcion" type="textarea" class="swal2-input">
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input3" class=" block text-gray-700 uppercase font-bold" >Prioridad: </label>
+            <input id="swal-input3" placeholder="Prioridad" class="swal2-input">
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input5" class=" block text-gray-700 uppercase font-bold" >Fecha de inicio: </label>
+            <input id="swal-input5" class="swal2-input" type="date" min=${fechaActual} >
+          </div>
+
+          <div class="mb-0">
+            <label htmlFor="swal-input6" class=" block text-gray-700 uppercase font-bold" >Fecha limite: </label>
+            <input id="swal-input6" class="swal2-input" type="date" min=${fechaActual}>
+          </div>
         `,
+        confirmButtonText: "Agregar",
         focusConfirm: false,
         preConfirm: () => {
           return {
             name: document.getElementById("swal-input1").value,
             description: document.getElementById("swal-input2").value,
-            date: document.getElementById("swal-input3").value,
-            date_end: document.getElementById("swal-input4").value,
-            id_creator: this.userStore.idUsuario
+            prioridad: document.getElementById("swal-input3").value,
+            date: document.getElementById("swal-input5").value,
+            date_end: document.getElementById("swal-input6").value,
+            id_creator: this.userStore.idUsuario,
+            estado: 'Incompleto',
+            name_proyecto: '-'
+
           };
         }
       });
@@ -56,8 +109,61 @@ export default class AlertService{
         const apiService = new ApiService()
         apiService.agregarTarea(formValues)
         console.log(formValues);
-        
-        this.mostrarAlert('Tarea Guardada', 'La tarea se ha creado exitosamente', 'success', 'Okay')
+      }
+    }
+
+    async modalActualizarTarea(tarea: ITarea){
+      const fecha = new Date()
+      const fechaActual = fecha.toISOString().split('T')[0];
+      
+      const { value: formValues } = await Swal.fire({
+        title: "Editar Tarea",
+        html: `
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Nombre: </label>
+            <input id="swal-input1" value=${tarea.name} placeholder="Nombre" class="swal2-input">
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input2" class=" block text-gray-700 uppercase font-bold" >Descripción: </label>
+            <input id="swal-input2" value=${tarea.description} placeholder="Descripcion" type="textarea" class="swal2-input">
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input3" class=" block text-gray-700 uppercase font-bold" >Prioridad: </label>
+            <input id="swal-input3" value=${tarea.prioridad} placeholder="Prioridad" class="swal2-input">
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input5" class=" block text-gray-700 uppercase font-bold" >Fecha de inicio: </label>
+            <input id="swal-input5" value=${tarea.date} class="swal2-input" type="date" min=${fechaActual} >
+          </div>
+
+          <div class="mb-0">
+            <label htmlFor="swal-input6" class=" block text-gray-700 uppercase font-bold" >Fecha limite: </label>
+            <input id="swal-input6" class="swal2-input" value=${tarea.date_end} type="date" min=${fechaActual}>
+          </div>
+        `,
+        confirmButtonText: "Actualizar",
+        focusConfirm: false,
+        preConfirm: () => {
+          return {
+            name: document.getElementById("swal-input1").value,
+            description: document.getElementById("swal-input2").value,
+            prioridad: document.getElementById("swal-input3").value,
+            date: document.getElementById("swal-input5").value,
+            date_end: document.getElementById("swal-input6").value,
+            id_creator: tarea.id_creator,
+            estado: tarea.estado,
+            name_proyecto: tarea.name_proyecto
+
+          };
+        }
+      });
+      if (formValues) {
+        const apiService = new ApiService()
+        apiService.actualizarTarea(tarea._id, formValues)
+        console.log(formValues);
       }
     }
 
