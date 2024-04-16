@@ -1,6 +1,6 @@
 <template>
     <!-- Desktop sidebar -->
-    <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+    <aside v-show="isOpen" class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                 TASKY
@@ -38,7 +38,8 @@
         </div>
     </aside>
     <!-- Mobile sidebar -->
-    <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden">
+    <aside v-show="isOpen"
+        class="fixed inset-y-0 z-10 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden">
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                 TASKY
@@ -75,6 +76,10 @@
             </ul>
         </div>
     </aside>
+
+    <button @click="toggleSidebar" class="fixed top-5 left-5 z-50 bg-gray-800 text-white p-3 rounded-md focus:outline-none">
+        Abrir
+    </button>
 </template>
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router';
@@ -82,6 +87,14 @@ import IconMembers from './icons/IconMembers.vue';
 import IconProjects from './icons/IconProjects.vue';
 import IconTasks from './icons/IconTaks.vue';
 import IconDashboard from './icons/IconDashboard.vue';
+
+import { ref } from 'vue';
+
+const isOpen = ref(true);
+
+const toggleSidebar = () => {
+    isOpen.value = !isOpen.value;
+}
 
 </script>
 <style scoped></style>

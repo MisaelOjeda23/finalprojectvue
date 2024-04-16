@@ -4,13 +4,12 @@
   
     <section class="flex justify-between text-white pb-11">
       <div>
-        <h3 class="text-4xl font-semibold">{{ fecha[0] }}</h3>
-        <p class="text-base">{{ fecha[1] }} | 10:05 AM</p>
+        <h3 class="text-4xl font-semibold text-gray-700 dark:text-gray-200">{{ fecha[0] }}</h3>
+        <p class="text-base text-gray-700 dark:text-gray-200">{{ fecha[1] }} | 10:05 AM</p>
       </div>
     </section>
 
-    <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-      <WidgetInfo />
+    <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
       <WidgetInfo />
       <WidgetInfo />
       <WidgetInfo />

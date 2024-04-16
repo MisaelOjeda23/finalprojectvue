@@ -8,6 +8,7 @@ export default {
         //Colors
         "primary": "#FABB18",
         "primary-hover": "#C69413",
+        "primary-light": "#fff8e8",
         "secondary": "#9A9A9A",
         //Table colors
         "alta": "#E06C60",

@@ -1,10 +1,9 @@
 <template>
     <SectionContainer>
         <main>
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Tareas</h2>
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Mis tareas</h2>
 
-            <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                <WidgetInfo />
+            <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
                 <WidgetInfo />
                 <WidgetInfo />
                 <WidgetInfo />
