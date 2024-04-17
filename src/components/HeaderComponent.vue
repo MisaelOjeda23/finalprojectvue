@@ -9,7 +9,7 @@
             </button>
             <!-- Buscador -->
             <div class="pr-6 text-gray-500 dark:text-gray-400 text-lg">
-                <h2 class="hidden md:block justify-end text-white">Dashboard</h2>
+                <h2 class="hidden md:block justify-end text-white">{{ $route.name }}</h2>
             </div>
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-primary">
@@ -21,7 +21,7 @@
                         </svg>
                     </div>
                     <input
-                        class="w-full pl-8 pr-2 text-base text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-primary focus:outline-none focus:shadow-outline-primary form-input"
+                        class="w-full py-1 pl-8 pr-2 text-base text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-primary focus:outline-none focus:shadow-outline-primary form-input"
                         type="text" placeholder="Buscar tareas..." aria-label="Search" />
                 </div>
             </div>
@@ -44,23 +44,16 @@
                             <ul class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                                 aria-label="submenu">
                                 <li class="flex">
-                                    <RouterLink to="/#"
+                                    <RouterLink to="/profile"
                                         class="inline-flex items-center w-full px-2 py-1 text-base font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
                                         <IconProfile class="w-4 h-4 mr-3" />
                                         <span>Mi perfil</span>
                                     </RouterLink>
                                 </li>
-                                <li class="flex">
-                                    <RouterLink to="/#"
-                                        class="inline-flex items-center w-full px-2 py-1 text-base font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
-                                        <IconLogOut class="w-4 h-4 mr-3" />
-                                        <span>Configurar</span>
-                                    </RouterLink>
-                                </li>
                                 <li class="flex" v-on:click="cerrarSesion">
                                     <RouterLink to="/"
                                         class="inline-flex items-center w-full px-2 py-1 text-base font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
-                                        <IconSettings class="w-4 h-4 mr-3" />
+                                        <IconLogOut class="w-4 h-4 mr-3" />
                                         <span>Cerrar sesión</span>
                                     </RouterLink>
                                 </li>
@@ -75,7 +68,6 @@
 <script lang="ts" setup>
 import IconLogOut from '@/components/icons/IconLogOut.vue';
 import IconMenuHam from '@/components/icons/IconMenuHam.vue';
-import IconSettings from '@/components/icons/IconSettings.vue';
 import IconProfile from '@/components/icons/IconProfile.vue';
 import ButtonTheme from '@/components/buttons/ButtonTheme.vue';
 import UserService from '@/services/UserService';

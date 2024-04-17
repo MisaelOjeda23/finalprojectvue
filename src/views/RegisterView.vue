@@ -19,8 +19,8 @@
                         <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-txt-white-m">
                             Registrate en TASKY
                         </h1>
-                        
-                        <form v-on:submit="registrarUsuario" >
+
+                        <form v-on:submit="registrarUsuario">
                             <div v-if="mensaje">
                                 <Error :prop1="mensaje" :prop2="tipo" />
                             </div>
@@ -47,16 +47,17 @@
                                     class="block w-full mt-1 text-base dark:border-gray-600 dark:bg-gray-700 focus:border-primary-hover focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input px-4 py-2"
                                     placeholder="***************" type="password" v-model="password" />
                             </label>
-                            <input class="block w-full px-4 py-2 mt-6 text-base font-medium leading-5 text-center text-white transition-colors duration-150 bg-primary border border-transparent rounded-lg active:bg-primary-hover hover:bg-primary-hover focus:outline-none focus:shadow-outline-purple"
-                                href="#" type="submit" value="Registrarse">
-                            </input>
+                            <input
+                                class="block w-full px-4 py-2 mt-6 text-base font-medium leading-5 text-center text-white transition-colors duration-150 bg-primary border border-transparent rounded-lg active:bg-primary-hover hover:bg-primary-hover focus:outline-none focus:shadow-outline-purple"
+                                href="#" type="submit" value="Registrarse" />
                         </form>
 
                         <hr class="my-8" />
 
                         <p class="mt-1">
                             <RouterLink to="/"
-                                class="text-base font-medium text-primary-color dark:text-primary hover:underline">¿Ya tienes cuenta? Inicia sesión</RouterLink>
+                                class="text-base font-medium text-primary-color dark:text-primary hover:underline">¿Ya
+                                tienes cuenta? Inicia sesión</RouterLink>
                         </p>
                     </div>
                 </div>
@@ -71,16 +72,16 @@ import { ref, type Ref } from 'vue';
 import ApiService from '@/services/ApiService';
 import Error from '@/components/Error.vue';
 
-     const name:Ref<string> = ref('')
-     const email:Ref<string> = ref('')
-     const password:Ref<string> = ref('')
+const name: Ref<string> = ref('')
+const email: Ref<string> = ref('')
+const password: Ref<string> = ref('')
 
-     const mensaje = ref('')
-     const tipo = ref('')
+const mensaje = ref('')
+const tipo = ref('')
 
-  const service = new ApiService()
+const service = new ApiService()
 
-  const registrarUsuario = async (e: any) => {
+const registrarUsuario = async (e: any) => {
     e.preventDefault();
 
     if ([name.value, email.value, password.value].includes('')) {
@@ -96,12 +97,12 @@ import Error from '@/components/Error.vue';
     }
 
     //console.log(usuario);
-    
+
     mensaje.value = ''
     tipo.value = ''
     await service.Registrar(usuario)
-    
-  }
+
+}
 
 
 </script>

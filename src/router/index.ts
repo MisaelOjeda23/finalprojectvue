@@ -6,6 +6,7 @@ import ProjectsView from '@/views/ProjectsView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import TasksView from '@/views/TasksView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,22 +28,27 @@ const router = createRouter({
     },
     {
       path: '/members',
-      name: 'Members',
+      name: 'Miembros',
       component: MembersView
     },
     {
       path: '/projects',
-      name: 'Projects',
+      name: 'Proyectos',
       component: ProjectsView
     },
     {
       path: '/tasks',
-      name: 'Tasks',
+      name: 'Tareas',
       component: TasksView
     },
     {
+      path: '/profile',
+      name: 'Perfil',
+      component	: ProfileView
+    },
+    {
       path: '/:pathMatch(.*)*',
-      name: 'NotFound',
+      name: 'No encontrado',
       component: NotFoundView
     }
   ]
