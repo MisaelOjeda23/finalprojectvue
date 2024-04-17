@@ -5,7 +5,7 @@
     <section class="flex justify-between text-white pb-11">
       <div>
         <h3 class="text-4xl font-semibold text-gray-700 dark:text-gray-200">{{ fecha[0] }}</h3>
-        <p class="text-base text-gray-700 dark:text-gray-200">{{ fecha[1] }} | 10:05 AM</p>
+        <p class="text-base text-gray-700 dark:text-gray-200">{{ fecha[1] }} | {{ getCurrentTime() }}</p>
       </div>
     </section>
 
@@ -68,16 +68,27 @@ const idUser = userService.getIdUsuario()
 const fecha = userStore.diaSemana().split(',')
 
 const tareas:Ref<ITarea[]> = ref([])
+  const currentTime = ref<string>('')
 
 onMounted(async () => {
 
   tareas.value = await apiService.obtenerTareas(user.value.idUser)
   console.log(tareas.value);
   console.log(idUser.value);
-  
-  
 })
 
+const getCurrentTime = () => {
+  const now = new Date();
+  let hours = now.getHours();
+  const minutes = now.getMinutes();
+  const amPm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  return `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${amPm}`;
+} 
+
+onMounted(async () => {
+  currentTime.value = getCurrentTime()
+})
 
 </script>
 <style scoped></style>

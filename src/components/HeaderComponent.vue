@@ -9,7 +9,7 @@
             </button>
             <!-- Buscador -->
             <div class="pr-6 text-gray-500 dark:text-gray-400 text-lg">
-                <h2 class="hidden md:block justify-end text-white">{{ $route.name }}</h2>
+                <h2 class="hidden md:block justify-end text-gray-700 dark:text-gray-200">{{ $route.name }}</h2>
             </div>
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-primary">
@@ -74,8 +74,8 @@ import UserService from '@/services/UserService';
 
 import { RouterLink } from 'vue-router';
 
-    const userService = new UserService()
-    const user = userService.getUsuario()
+const userService = new UserService()
+const user = userService.getUsuario()
 
 const cerrarSesion = () => {
     userService.borrarUsuarioLS()
