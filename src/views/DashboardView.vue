@@ -5,14 +5,14 @@
     <section class="flex justify-between text-white pb-11">
       <div>
         <h3 class="text-4xl font-semibold text-gray-700 dark:text-gray-200">{{ fecha[0] }}</h3>
-        <p class="text-base text-gray-700 dark:text-gray-200">{{ fecha[1] }} | 10:05 AM</p>
+        <p class="text-base text-gray-700 dark:text-gray-200">{{ fecha[1] }} </p>
       </div>
     </section>
 
     <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
-      <WidgetInfo />
-      <WidgetInfo />
-      <WidgetInfo />
+      <WidgetInfo :titulo="'Tareas Pendientes'" :contador="tareas.length" />
+      <WidgetInfo :titulo="'Tareas Atrasadas'" :contador="1" />
+      <WidgetInfo :titulo="'Proyectos Totales'" :contador="0" />
     </section>
 
     <section class=" flex justify-between text-white mt-0 py-0">

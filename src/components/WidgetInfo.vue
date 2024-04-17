@@ -9,13 +9,16 @@
         </div>
         <div>
             <p class="mb-2 text-base font-medium text-gray-600 dark:text-gray-400">
-                Tareas completadas
+                {{ props.titulo }}
             </p>
             <p class="text-sm font-semibold text-gray-700 dark:text-gray-200">
-                10
+                {{ props.contador }}
             </p>
         </div>
     </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+    const props = defineProps(['titulo', 'contador'])
+
+</script>
 <style scoped></style>

@@ -4,12 +4,13 @@
         <div class="container flex items-center justify-between h-full px-6 mx-auto text-primary0 dark:text-primary">
             <!-- Mobile hamburger -->
             <button class="p-1 -ml-1 mr-5 rounded-md  focus:outline-none focus:shadow-outline-primary"
-                aria-label="Menu">
+                aria-label="Menu"
+                @click="$emit('abrirSide', true)">
                 <IconMenuHam class="w-6 h-6" />
             </button>
             <!-- Buscador -->
-            <div class="pr-6 text-gray-500 dark:text-gray-400 text-lg">
-                <h2 class="hidden md:block justify-end text-white">{{ $route.name }}</h2>
+            <div class="pr-6  text-lg">
+                <h2 class="hidden md:block justify-end text-gray-600 dark:text-white">{{ $route.name }}</h2>
             </div>
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-primary">
