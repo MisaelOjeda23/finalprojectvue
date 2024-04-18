@@ -11,7 +11,7 @@
 
     <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
       <WidgetInfo :titulo="'Tareas Pendientes'" :contador="tareas.length" />
-      <WidgetInfo :titulo="'Tareas Atrasadas'" :contador="1" />
+      <WidgetInfo :titulo="'Tareas Atrasadas'" :contador="0" />
       <WidgetInfo :titulo="'Proyectos Totales'" :contador="0" />
     </section>
 
@@ -74,7 +74,6 @@ onMounted(async () => {
   tareas.value = await apiService.obtenerTareas(user.value.idUser)
   console.log(tareas.value);
   console.log(idUser.value);
-  
   
 })
 

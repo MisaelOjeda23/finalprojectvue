@@ -3,6 +3,7 @@ import router from '@/router'
 import { useUserStore } from '@/stores/user';
 import ApiService from './ApiService';
 import type { ITarea } from '@/interfaces/ITarea';
+import { POSITION, useToast } from 'vue-toastification';
 
 export default class AlertService{
 
@@ -165,6 +166,44 @@ export default class AlertService{
         apiService.actualizarTarea(tarea._id, formValues)
         console.log(formValues);
       }
+    }
+
+    async toastBienvenida(userName: string){
+      const toast = useToast()
+
+      toast.success(`Bienvenido, ${userName}`, {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+        closeOnClick: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: false,
+        draggable: true,
+        draggablePercent: 0.6,
+        showCloseButtonOnHover: false,
+        hideProgressBar: false,
+        closeButton: false,
+        icon: true,
+        rtl: false
+      });
+    }
+
+    async toastSesionCerrada(){
+      const toast = useToast()
+
+      toast.warning(`Sesión Cerrada`, {
+        position: POSITION.TOP_RIGHT,
+        timeout: 4000,
+        closeOnClick: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: false,
+        draggable: true,
+        draggablePercent: 0.6,
+        showCloseButtonOnHover: false,
+        hideProgressBar: false,
+        closeButton: false,
+        icon: true,
+        rtl: false
+      });
     }
 
 

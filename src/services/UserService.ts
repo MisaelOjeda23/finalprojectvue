@@ -1,5 +1,6 @@
 import { ref, type Ref } from "vue"
 import type { IUser } from "@/interfaces/IUser"
+import AlertService from "./AlertService"
 
 export default class UserService{
 
@@ -26,6 +27,9 @@ export default class UserService{
         localStorage.setItem('idUser', usuario.idUser)
         this.obtenerUsuarioLS()
         this.obtenerIdUsuarioLS()
+
+        const alertService = new AlertService()
+        await alertService.toastBienvenida(this.user.value.name)
     }
 
     obtenerUsuarioLS(){
@@ -44,6 +48,9 @@ export default class UserService{
     async borrarUsuarioLS(){
         localStorage.removeItem('user')
         localStorage.removeItem('idUser')
+
+        const alertService = new AlertService()
+        await alertService.toastSesionCerrada()
     }
 
 }
