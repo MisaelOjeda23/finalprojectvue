@@ -6,6 +6,7 @@ import UserService from "./UserService";
 import { useTaskStore } from "@/stores/task";
 import { useUserStore } from "@/stores/user";
 import type { ITarea } from "@/interfaces/ITarea";
+import type { IUser } from "@/interfaces/IUser";
 
 export default class ApiService{
     
@@ -180,7 +181,24 @@ export default class ApiService{
         }
     }
 
+    async actualizarUsuario(id: string, usuario: IUser){
+        try {
 
+            const respuesta = await fetch(this.url + `/user/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(usuario)   
+            })
+            const resultado = await respuesta.json()
+
+            if (resultado.error) {
+                this.alertService.mostrarAlert('Error', 'Ocurrio un error al actualizar el usuario. Por favor vuelva a intentarlo', "warning", 'Volver a intertar')
+                return
+            }            
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
 
 
