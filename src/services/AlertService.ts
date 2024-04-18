@@ -6,6 +6,7 @@ import type { ITarea } from '@/interfaces/ITarea';
 import { POSITION, useToast } from 'vue-toastification';
 import UserService from './UserService';
 import { ref } from 'vue';
+import type { IUser } from '@/interfaces/IUser';
 
 export default class AlertService{
 
@@ -284,5 +285,42 @@ export default class AlertService{
       });
     }
 
+    async modalActualizarUsuario(usuario: IUser){
+      const fecha = new Date()
+      const fechaActual = fecha.toISOString().split('T')[0];
+      
+      const { value: formValues } = await Swal.fire({
+        title: "Editar Perfil",
+        html: `
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Nombre: </label>
+            <input type="text" id="swal-input1" value=${usuario.name} placeholder="Nombre" class="swal2-input">
+          </div>
 
+          <div class="mb-5">
+            <label htmlFor="swal-input2" class=" block text-gray-700 uppercase font-bold" >Email: </label>
+            <input type="text" id="swal-input2" value=${usuario.email} placeholder="Email" type="textarea" class="swal2-input">
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input3" class=" block text-gray-700 uppercase font-bold" >Contraseña: </label>
+            <input type="password" type="password" id="swal-input3" value=${usuario.password} placeholder="Contraseña" class="swal2-input">
+          </div>
+        `,
+        confirmButtonText: "Actualizar",
+        focusConfirm: false,
+        preConfirm: () => {
+          return {
+            name: document.getElementById("swal-input1").value,
+            email: document.getElementById("swal-input2").value,
+            password: document.getElementById("swal-input3").value
+          };
+        }
+      });
+      if (formValues) {
+        const apiService = new ApiService()
+        apiService.actualizarUsuario(usuario._id, formValues)
+        console.log(formValues);
+      }
+    }
 }
