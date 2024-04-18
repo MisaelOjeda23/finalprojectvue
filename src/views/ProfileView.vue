@@ -51,7 +51,7 @@ const user = userService.getUsuario()
 
 const editarUsuario = ( async (usuario: IUser) => {
         await alertService.modalActualizarUsuario(usuario)
-    })
+})
 
 </script>
 <style scoped></style>
