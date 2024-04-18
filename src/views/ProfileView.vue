@@ -14,9 +14,9 @@
                                 </div>
                             </div>
                             <div class="mt-6 sm:mt-0">
-                                <a href="#"
+                                <button @click="editarUsuario(user)"
                                     class="bg-orange-500 hover:bg-orange-500/90 text-white py-2 px-4 rounded focus:ring-4 focus:outline-none focus:ring-orange-500/50">Editar
-                                    información</a>
+                                    información</button>
                             </div>
                         </div>
                         <hr class="my-6 border-t border-gray-300 dark:border-gray-700">
@@ -41,11 +41,17 @@
 </template>
 <script lang="ts" setup>
 import SectionContainer from '@/components/SectionContainer.vue';
+import type { IUser } from '@/interfaces/IUser';
 import UserService from '@/services/UserService';
+import AlertService from '@/services/AlertService';
 
 const userService = new UserService()
+const alertService = new AlertService()
 const user = userService.getUsuario()
 
+const editarUsuario = ( async (usuario: IUser) => {
+        await alertService.modalActualizarUsuario(usuario)
+    })
 
 </script>
 <style scoped></style>

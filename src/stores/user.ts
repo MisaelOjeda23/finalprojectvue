@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   function diaSemana() {
-    let date = new Date(fecha.toDateString().replace(/-+/g, '/'));
+    const date = new Date(fecha.toDateString().replace(/-+/g, '/'));
 
     fechaDelDia = date.toLocaleDateString('es-MX', {
         weekday: 'long',
