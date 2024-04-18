@@ -11,8 +11,8 @@
 
     <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
       <WidgetInfo :titulo="'Tareas Pendientes'" :contador="tareas.length" />
-      <WidgetInfo :titulo="'Tareas Atrasadas'" :contador="0" />
-      <WidgetInfo :titulo="'Proyectos Totales'" :contador="0" />
+      <WidgetInfo :titulo="'Tareas Atrasadas'" :contador="tareasAtrasadas.length" />
+      <WidgetInfo :titulo="'Proyectos Totales'" :contador="proyectos.length" />
     </section>
 
     <section class=" flex justify-between text-white mt-0 py-0">
@@ -39,8 +39,8 @@
     </h2>
 
     <section class="grid gap-6 mb-8 md:grid-cols-2">
-      <CardInfo />
-      <CardInfo />
+      <CardInfoEquipo />
+      <CardInfoProject />
     </section>
 
   </SectionContainer>
@@ -56,25 +56,38 @@ import UserService from '@/services/UserService';
 import ApiService from '@/services/ApiService';
 import AlertService from '@/services/AlertService';
 import type { ITarea } from '@/interfaces/ITarea';
+import { useTaskStore } from '@/stores/task';
+import CardInfoEquipo from '@/components/CardInfoEquipo.vue';
+import CardInfoProject from '@/components/CardInfoProject.vue';
+import type { IProyecto } from '@/interfaces/IProyecto';
 
 const userService = new UserService()
 const apiService = new ApiService()
 const alertService = new AlertService()
 
 const userStore = useUserStore()
+const taskStore = useTaskStore()
 const user = userService.getUsuario()
 const idUser = userService.getIdUsuario()
 
 const fecha = userStore.diaSemana().split(',')
 
-const tareas:Ref<ITarea[]> = ref([])
+  const tareas:Ref<ITarea[]> = ref([])
   const currentTime = ref<string>('')
+
+  const tareasAtrasadas = ref(taskStore.tareasAtrasadas)
+  const proyectos:Ref<IProyecto[]> = ref([])
 
 onMounted(async () => {
 
+  currentTime.value = getCurrentTime()
   tareas.value = await apiService.obtenerTareas(user.value.idUser)
+  await apiService.obtenerEquipos(idUser.value)
+  proyectos.value = await taskStore.proyectos
   console.log(tareas.value);
   console.log(idUser.value);
+  console.log(taskStore.equipos);
+  console.log('sadasdad',proyectos.value);
   
 })
 
@@ -87,9 +100,6 @@ const getCurrentTime = () => {
   return `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${amPm}`;
 } 
 
-onMounted(async () => {
-  currentTime.value = getCurrentTime()
-})
 
 </script>
 <style scoped></style>

@@ -21,6 +21,7 @@
                     <th class="px-3 py-3">Tareas pendientes</th>
                     <th class="px-3 py-3">Prioridad</th>
                     <th class="px-3 py-3">Estado</th>
+                    <th class="px-3 py-3">Fecha Inicial</th>
                     <th class="px-3 py-3">Fecha limite</th>
                     <th class="px-3 py-3 hidden md:table-cell">Proyecto</th>
                 </tr>
@@ -49,6 +50,7 @@
                             {{ tarea.estado }}
                         </span>
                     </td>
+                    <td class="px-4 py-3 text-sm">{{ tarea.date }}</td>
                     <td class="px-4 py-3 text-sm">{{ tarea.date_end }}</td>
                     <td class="px-4 py-3 text-sm">{{ tarea.name_proyecto }}</td>
                 </tr>
@@ -58,11 +60,13 @@
         </table>
     </div>
 </template>
+
 <script lang="ts" setup>
 import IconTaks from './icons/IconTaks.vue';
 const props = defineProps(['tareas']);
-console.log(props.tareas)
+
 </script>
+
 <style scoped>
 .baja {
     @apply px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100

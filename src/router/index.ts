@@ -28,7 +28,7 @@ const router = createRouter({
     },
     {
       path: '/members',
-      name: 'Miembros',
+      name: 'Equipos',
       component: MembersView
     },
     {

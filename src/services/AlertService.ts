@@ -4,6 +4,8 @@ import { useUserStore } from '@/stores/user';
 import ApiService from './ApiService';
 import type { ITarea } from '@/interfaces/ITarea';
 import { POSITION, useToast } from 'vue-toastification';
+import UserService from './UserService';
+import { ref } from 'vue';
 
 export default class AlertService{
 
@@ -22,6 +24,30 @@ export default class AlertService{
             confirmButtonText: botonText
           })
     }
+
+    async mostrarAlertPreguntar(titulo: string, texto: string, icono: 'success' | 'error' | 'warning' | 'info' | 'question', confirmText: string, denyText: string, tarea: ITarea){
+      await Swal.fire({
+        title: titulo,
+        text: texto,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: confirmText,
+        denyButtonText: denyText
+      }).then( async (result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          const apiService = new ApiService()
+
+          await apiService.completarTarea(tarea._id, tarea)
+          this.toastSuccess(`Tarea completada`)
+
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+    }
+    
+
 
     async mostrarAlertYRedirigir(titulo: string, texto: string, icono: 'success' | 'error' | 'warning' | 'info' | 'question', botonText: string, routerTo: string ){
         await Swal.fire({
@@ -168,6 +194,39 @@ export default class AlertService{
       }
     }
 
+    async modalCrearProyecto(){
+      
+      const { value: formValues } = await Swal.fire({
+        title: "Nuevo Proyecto",
+        html: `
+        <div class="mb-5" >
+          <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Nombre del Proyecto: </label>
+          <input id="swal-input1" placeholder="Nombre del Proyecto" class="swal2-input">
+        </div>
+
+        <div class="mb-5">
+          <label htmlFor="swal-input2" class=" block text-gray-700 uppercase font-bold" >Equipo: </label>
+          <input id="swal-input2" placeholder="Equipo" type="textarea" class="swal2-input">
+        </div>
+
+      `,
+        confirmButtonText: "Agregar",
+        focusConfirm: false,
+        preConfirm: () => {
+          return {
+            name_proyecto: document.getElementById("swal-input1").value,
+            id_equipo: document.getElementById("swal-input2").value,
+            status: 'Activo'
+          };
+        }
+      });
+      if (formValues) {
+        const apiService = new ApiService()
+        apiService.agregarProyecto(formValues)
+        console.log(formValues);
+      }
+    }
+
     async toastBienvenida(userName: string){
       const toast = useToast()
 
@@ -191,6 +250,25 @@ export default class AlertService{
       const toast = useToast()
 
       toast.warning(`Sesión Cerrada`, {
+        position: POSITION.TOP_RIGHT,
+        timeout: 4000,
+        closeOnClick: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: false,
+        draggable: true,
+        draggablePercent: 0.6,
+        showCloseButtonOnHover: false,
+        hideProgressBar: false,
+        closeButton: false,
+        icon: true,
+        rtl: false
+      });
+    }
+
+    async toastSuccess(texto: string){
+      const toast = useToast()
+
+      toast.success(texto, {
         position: POSITION.TOP_RIGHT,
         timeout: 4000,
         closeOnClick: true,

@@ -67,6 +67,11 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </button>
+                            <button
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-primary rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Complete" v-on:click="completarTarea(tarea)">
+                                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-checkbox w-5 h-5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11l3 3l8 -8" /><path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" /></svg>
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -74,76 +79,7 @@
             </tbody>
         </table>
     </div>
-    <div
-        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-        <span class="flex items-center col-span-3">
-            Mostrando 21-30 de 100
-        </span>
-        <span class="col-span-2"></span>
-        <!-- Pagination -->
-        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-            <nav aria-label="Table navigation">
-                <ul class="inline-flex items-center">
-                    <li>
-                        <button
-                            class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-primary"
-                            aria-label="Previous">
-                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                <path
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-primary">
-                            1
-                        </button>
-                    </li>
-                    <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-primary">
-                            2
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            class="px-3 py-1 text-white transition-colors duration-150 bg-primary border border-r-0 border-primary rounded-md focus:outline-none focus:shadow-outline-primary">
-                            3
-                        </button>
-                    </li>
-                    <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-primary">
-                            4
-                        </button>
-                    </li>
-                    <li>
-                        <span class="px-3 py-1">...</span>
-                    </li>
-                    <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-primary">
-                            8
-                        </button>
-                    </li>
-                    <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-primary">
-                            9
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-primary"
-                            aria-label="Next">
-                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                <path
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </span>
-    </div>
+
 </template>
 <script lang="ts" setup>
 import type { ITarea } from '@/interfaces/ITarea';
@@ -162,6 +98,10 @@ import ApiService from '@/services/ApiService';
 
     const eliminarTarea = ( async (id: string) => {
         alertService.preguntarEliminarAlert('¿Eliminar tarea?', '¿Estas seguro que deseas eliminar esta tarea?', 'Si eleminar', id)
+    })
+
+    const completarTarea = ( async (tarea: ITarea) => {
+        await alertService.mostrarAlertPreguntar('¿Tarea completa?', '¿Estas seguro de querer marcar como completa esta tarea?', 'question', 'Si, completar', 'No', tarea)
     })
 
 </script>

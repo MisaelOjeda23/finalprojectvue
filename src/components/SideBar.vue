@@ -3,7 +3,7 @@
     <aside v-show="props.isOpen" class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-                TASKY
+                TASK<a class="text-[#fabb18]">Y</a>
             </a>
             <ul class="mt-6">
                 <li class="relative px-6 py-3">
@@ -31,7 +31,7 @@
                     <RouterLink to="/members"
                         class="inline-flex items-center w-full text-base font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <IconMembers class="w-5 h-5" />
-                        <span class="ml-4">Miembros</span>
+                        <span class="ml-4">Equipos</span>
                     </RouterLink>
                 </li>
             </ul>

@@ -7,9 +7,9 @@
     </section>
 
             <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
-                <WidgetInfo :titulo="'Tareas Pendientes'" :contador="taskStores.tareas.length" />
-                <WidgetInfo :titulo="'Tareas Atrasadas'" :contador="0" />
-                <WidgetInfo :titulo="'Proyectos Totales'" :contador="0" />
+                <WidgetInfo :titulo="'Tareas Pendientes'" :contador="numTareasPendientes" />
+                <WidgetInfo :titulo="'Tareas Atrasadas'" :contador="taskStores.tareasAtrasadas.length" />
+                <WidgetInfo :titulo="'Tareas Completas'" :contador="0" />
             </section>
 
             <section class=" flex justify-between text-white mt-0 py-0">
@@ -36,7 +36,7 @@ import SectionContainer from '@/components/SectionContainer.vue';
 import WidgetInfo from '@/components/WidgetInfo.vue';
 import TableEdit from '@/components/TableEdit.vue';
 import { useTaskStore } from '@/stores/task';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import ApiService from '@/services/ApiService';
 import { useUserStore } from '@/stores/user';
 import AlertService from '@/services/AlertService';
@@ -45,6 +45,9 @@ import AlertService from '@/services/AlertService';
     const taskStores = useTaskStore()
     const apiService = new ApiService()
     const alertService = new AlertService()
+
+    const numTareasPendientes = ref(taskStores.tareas.length)
+    const tareasAtrasadas = ref(taskStores.tareasAtrasadas)
 
     onMounted( async () => {
         await apiService.obtenerTareas(userStore.idUsuario)

@@ -51,11 +51,30 @@ export default class ApiService{
             const tasKStore = useTaskStore()
             tasKStore.tareas = resultado
 
+            this.obtenerTareasAtrasadas(id)
+
             return resultado
 
         } catch (error) {
             console.log(error);
             
+        }
+    }
+
+    async obtenerTareasAtrasadas(id: string){
+        try {
+            const respuesta = await fetch(this.url + `/tarea/user/atrasadas/${id}`)
+            const resultado = await respuesta.json()
+
+            console.log(`Tareas atrasadas del usuario ${id}:`, resultado);
+
+            const tasKStore = useTaskStore()
+            tasKStore.tareasAtrasadas = resultado
+
+            return resultado
+
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -129,6 +148,40 @@ export default class ApiService{
         }
     }
 
+    async completarTarea(id: string, tarea: ITarea){
+        try {
+
+            const newTarea = {
+                name: tarea.name,
+                description: tarea.description,
+                prioridad: tarea.prioridad,
+                date: tarea.date,
+                date_end: tarea.date_end,
+                id_creator: tarea.id_creator,
+                estado: 'Completo',
+                name_proyecto: tarea.name_proyecto
+            }
+
+            const respuesta = await fetch(this.url + `/tarea/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newTarea)   
+            })
+            const resultado = await respuesta.json()
+
+            if (resultado.error) {
+                this.alertService.mostrarAlert('Error', 'Ocurrio un error al actualizar la tarea. Porfavor vuelva a intentarlo', "warning", 'Volver a intertar')
+                return
+            }
+
+            const userStore = useUserStore()
+            await this.obtenerTareas(userStore.idUsuario)
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     async Login(usuario: any){
         try {
 
@@ -180,6 +233,75 @@ export default class ApiService{
         }
     }
 
+    async obtenerEquipos(idUser: string){
+        try {
+            const respuesta = await fetch(this.url + `/equipo/${idUser}`)
+            const resultado = await respuesta.json()
+
+            console.log(`Equipos del usuario ${idUser}:`, resultado);
+
+            const tasKStore = useTaskStore()
+            tasKStore.equipos = await resultado
+
+            await resultado.map( async (equipo: any) => {
+                const proyecto = await this.obtenerProyectos(equipo.id_equipo)
+                if (proyecto.id_equipo) {
+                    tasKStore.proyectos.push(proyecto)    
+                }
+            })
+
+            return resultado
+
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
+    async obtenerProyectos(idEquipo: string){
+        try {
+            const respuesta = await fetch(this.url + `/proyecto/team/${idEquipo}`)
+            const resultado = await respuesta.json()
+
+            console.log(`Proyectos del equipo ${idEquipo}:`, resultado);
+
+            const tasKStore = useTaskStore()
+            tasKStore.proyectos = resultado
+
+            return resultado
+
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
+    async agregarProyecto(proyecto: any) {
+
+        try {
+            const respuesta = await fetch(this.url + `/proyecto`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },   
+                body: JSON.stringify(proyecto)
+            })
+            const resultado = await respuesta.json()
+
+            console.log(`Proyecto agregada`, resultado);
+
+            if (resultado.error) {
+                this.alertService.mostrarAlert('Error', 'Ocurrio un error al agregar la tarea. Porfavor vuelva a intentarlo', "warning", 'Volver a intertar')
+                return
+            }
+
+            const userStore = useUserStore()
+            this.obtenerTareas(userStore.idUsuario)
+
+            
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
 
 
 
