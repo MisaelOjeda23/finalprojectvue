@@ -145,8 +145,6 @@ export default class ApiService{
                 return
             }
 
-            this.alertService.mostrarAlert('Tarea Guardada', 'La tarea se ha creado exitosamente', 'success', 'Okay')
-
             /* Se guarda la informacion del usuario en el LocalStorage */
             this.userService.guardarUsuarioLS(resultado)
             /* Y se redirige a la vista de Dashboard */

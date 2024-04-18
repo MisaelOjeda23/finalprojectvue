@@ -10,9 +10,9 @@
     </section>
 
     <section class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
-      <WidgetInfo />
-      <WidgetInfo />
-      <WidgetInfo />
+      <WidgetInfo :titulo="'Tareas Pendientes'" :contador="tareas.length" />
+      <WidgetInfo :titulo="'Tareas Atrasadas'" :contador="1" />
+      <WidgetInfo :titulo="'Proyectos Totales'" :contador="0" />
     </section>
 
     <section class=" flex justify-between text-white mt-0 py-0">

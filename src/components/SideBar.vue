@@ -1,6 +1,6 @@
 <template>
     <!-- Desktop sidebar -->
-    <aside v-show="isOpen" class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+    <aside v-show="props.isOpen" class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                 TASKY
@@ -77,9 +77,6 @@
         </div>
     </aside>
 
-    <button @click="toggleSidebar" class="fixed top-5 left-5 z-50 bg-gray-800 text-white p-3 rounded-md focus:outline-none">
-        Abrir
-    </button>
 </template>
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router';
@@ -88,13 +85,9 @@ import IconProjects from './icons/IconProjects.vue';
 import IconTasks from './icons/IconTaks.vue';
 import IconDashboard from './icons/IconDashboard.vue';
 
-import { ref } from 'vue';
 
-const isOpen = ref(true);
+const props = defineProps(['isOpen'])
 
-const toggleSidebar = () => {
-    isOpen.value = !isOpen.value;
-}
 
 </script>
 <style scoped></style>

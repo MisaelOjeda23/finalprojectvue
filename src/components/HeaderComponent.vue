@@ -4,7 +4,8 @@
         <div class="container flex items-center justify-between h-full px-6 mx-auto text-primary0 dark:text-primary">
             <!-- Mobile hamburger -->
             <button class="p-1 -ml-1 mr-5 rounded-md  focus:outline-none focus:shadow-outline-primary"
-                aria-label="Menu">
+                aria-label="Menu"
+                @click="$emit('abrirSide', true)">
                 <IconMenuHam class="w-6 h-6" />
             </button>
             <!-- Buscador -->
