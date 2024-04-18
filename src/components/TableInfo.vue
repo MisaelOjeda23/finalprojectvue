@@ -24,6 +24,7 @@
                     <th class="px-3 py-3">Fecha Inicial</th>
                     <th class="px-3 py-3">Fecha limite</th>
                     <th class="px-3 py-3 hidden md:table-cell">Proyecto</th>
+                    <th class="px-3 py-3">Acciones</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -53,8 +54,23 @@
                     <td class="px-4 py-3 text-sm">{{ tarea.date }}</td>
                     <td class="px-4 py-3 text-sm">{{ tarea.date_end }}</td>
                     <td class="px-4 py-3 text-sm">{{ tarea.name_proyecto }}</td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center space-x-4 text-sm">
+                            <button
+                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-primary rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                    aria-label="Complete" v-on:click="completarTarea(tarea)">
+                                    <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-checkbox w-5 h-5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11l3 3l8 -8" /><path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" /></svg>
+                            </button>
+                            <button
+                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-primary rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                    aria-label="Complete" v-on:click="detallesTarea(tarea)">
+                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sticker-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h12a2 2 0 0 1 2 2v7h-5a2 2 0 0 0 -2 2v5h-7a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2z" /><path d="M20 13v.172a2 2 0 0 1 -.586 1.414l-4.828 4.828a2 2 0 0 1 -1.414 .586h-.172" /></svg>
+                            </button>
+                        </div>
+                    </td>
+                    
                 </tr>
-
+                
 
             </tbody>
         </table>
@@ -63,7 +79,19 @@
 
 <script lang="ts" setup>
 import IconTaks from './icons/IconTaks.vue';
+import AlertService from '@/services/AlertService';
+import type { ITarea } from '@/interfaces/ITarea';
+
 const props = defineProps(['tareas']);
+const alertService = new AlertService()
+
+const completarTarea = ( async (tarea: ITarea) => {
+        await alertService.mostrarAlertPreguntar('¿Tarea completa?', '¿Estas seguro de querer marcar como completa esta tarea?', 'question', 'Si, completar', 'No', tarea)
+})
+
+const detallesTarea = ( async(tarea: ITarea) => {
+    await alertService.mostrarDetalles(tarea)
+})
 
 </script>
 

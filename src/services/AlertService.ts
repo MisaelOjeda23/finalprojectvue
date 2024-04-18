@@ -323,4 +323,41 @@ export default class AlertService{
         console.log(formValues);
       }
     }
+
+    async mostrarDetalles(tarea: ITarea){
+      const fecha = new Date()
+      const fechaActual = fecha.toISOString().split('T')[0];
+      
+      const { value: formValues } = await Swal.fire({
+        title: "Detalles de la Tarea",
+        html: `
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Tarea: </label>
+            <h1>${tarea.name}</h1>
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input2" class=" block text-gray-700 uppercase font-bold" >Descripción: </label>
+            <p>${tarea.description}</p>
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input3" class=" block text-gray-700 uppercase font-bold" >Prioridad: </label>
+            <p>${tarea.prioridad}</p>
+          </div>
+
+          <div class="mb-5">
+            <label htmlFor="swal-input5" class=" block text-gray-700 uppercase font-bold" >Fecha de inicio: </label>
+            <p>${tarea.date}</p> 
+          </div>
+
+          <div class="mb-0">
+            <label htmlFor="swal-input6" class=" block text-gray-700 uppercase font-bold" >Fecha limite: </label>
+            <p>${tarea.date_end}</p> 
+          </div>
+        `,
+        confirmButtonText: "Aceptar",
+        focusConfirm: false,
+      });
+    }
 }
