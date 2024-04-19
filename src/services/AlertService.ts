@@ -5,8 +5,10 @@ import ApiService from './ApiService';
 import type { ITarea } from '@/interfaces/ITarea';
 import { POSITION, useToast } from 'vue-toastification';
 import UserService from './UserService';
-import { ref } from 'vue';
+import { ref, type Ref } from 'vue';
 import type { IUser } from '@/interfaces/IUser';
+import type { IProyecto } from '@/interfaces/IProyecto';
+import type { IEquipo } from '@/interfaces/IEquipo';
 
 export default class AlertService{
 
@@ -48,8 +50,6 @@ export default class AlertService{
       });
     }
     
-
-
     async mostrarAlertYRedirigir(titulo: string, texto: string, icono: 'success' | 'error' | 'warning' | 'info' | 'question', botonText: string, routerTo: string ){
         await Swal.fire({
             title: titulo,
@@ -213,10 +213,25 @@ export default class AlertService{
       `,
         confirmButtonText: "Agregar",
         focusConfirm: false,
-        preConfirm: () => {
+        preConfirm: async () => {
+          const apiService = new ApiService()
+
+          const equipo:Ref<IEquipo> = await apiService.buscarProyecto(document.getElementById("swal-input2").value)
+          console.log(equipo);
+          
+
+          if (!equipo) {
+            Swal.fire({
+              title: "Equipo no encontrado",
+              text: "El equipo ingresado no existe, favor de ingresar un equipo existente",
+              icon: "error"
+            });
+            return 
+          }
+
           return {
             name_proyecto: document.getElementById("swal-input1").value,
-            id_equipo: document.getElementById("swal-input2").value,
+            id_equipo: equipo.value.id_equipo,
             status: 'Activo'
           };
         }
@@ -322,5 +337,77 @@ export default class AlertService{
         apiService.actualizarUsuario(usuario._id, formValues)
         console.log(formValues);
       }
+    }
+
+    async modalVerMas(proyecto: IProyecto){
+      await Swal.fire({
+        title: "Detalles del proyecto",
+        html: `
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Nombre del Proyecto: </label>
+            <h2>${proyecto.name_proyecto}</h2>
+          </div>
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Estado del Proyecto: </label>
+            <h2>${proyecto.status}</h2>
+          </div>
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Tareas del Proyecto: </label>
+            <h2>${proyecto.tareas.length}</h2>
+          </div>
+        `,
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+    }
+
+    async modalVerMasEquipo(equipo: IEquipo){
+      await Swal.fire({
+        title: "Detalles del Equipo",
+        html: `
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Nombre del Equipo: </label>
+            <h2>${equipo.name_equipo}</h2>
+          </div>
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Estado del Proyecto: </label>
+            <h2>${equipo.status}</h2>
+          </div>
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >Integrantes del Equipo: </label>
+            <h2>${equipo.miembros.length}</h2>
+          </div>
+          <div class="mb-5" >
+            <label htmlFor="swal-input1" class=" block text-gray-700 uppercase font-bold" >ID del equipo: </label>
+            <h2>${equipo.id_equipo}</h2>
+          </div>
+        `,
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
     }
 }

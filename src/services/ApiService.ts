@@ -303,6 +303,23 @@ export default class ApiService{
         }
 
     }
+
+    async buscarProyecto(name: string){
+
+        try {
+            const respuesta = await fetch(this.url + `/equipo/team/${name}`)
+            const resultado = await respuesta.json()
+
+            console.log(`Equipo ${name}:`, resultado);
+
+            return resultado
+
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
     async actualizarUsuario(id: string, usuario: IUser){
         try {
 

@@ -3,7 +3,7 @@ export interface IProyecto {
     id_proyecto:   string;
     name_proyecto: string;
     id_equipo:     string;
-    estado: string;
+    status:        string;
     tareas:        Array<any[]>;
     __v:           number;
 }

@@ -15,7 +15,7 @@
             <p class="text-sm font-semibold text-gray-700 dark:text-gray-200">
                 Barra
             </p>
-                <button type="button" v-on:click="" class="text-white mt-5 h-10 bg-black hover:bg-gray-500/90 focus:ring-4 focus:outline-none focus:ring-gray-500/50 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:focus:ring-orange-500/55 me-2 mb-2">
+                <button type="button" v-on:click="verMas(proyecto)" class="text-white mt-5 h-10 bg-black hover:bg-gray-500/90 focus:ring-4 focus:outline-none focus:ring-gray-500/50 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:focus:ring-orange-500/55 me-2 mb-2">
                     Ver mas
                 </button>
 
@@ -23,7 +23,15 @@
     </div>
 </template>
 <script lang="ts" setup>
+import AlertService from '@/services/AlertService';
+
     const props = defineProps(['proyecto'])
+
+    const alertService = new AlertService()
+    
+    const verMas = ((proyecto: any) => {
+        alertService.modalVerMas(proyecto)
+    })
 
 </script>
 <style scoped></style>
